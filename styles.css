@@ -1,13 +1,3 @@
-:root {
-  --black: #050505;
-  --white: #ffffff;
-  --ink-soft: rgba(255, 255, 255, 0.74);
-  --line: rgba(255, 255, 255, 0.2);
-  --teal: #20d6c4;
-  --coral: #ff4f6c;
-  --gold: #f5c84b;
-}
-
 * {
   box-sizing: border-box;
 }
@@ -18,53 +8,23 @@
 
 html,
 body {
+  width: 100%;
   min-height: 100%;
 }
 
 body {
   margin: 0;
-  background: var(--black);
-  color: var(--white);
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  letter-spacing: 0;
+  background: #000000;
+  color: #ffffff;
+  font-family: Arial, Helvetica, sans-serif;
   overflow: hidden;
 }
 
-button,
-a {
-  color: inherit;
-}
-
-button {
-  font: inherit;
-  cursor: pointer;
-}
-
-a {
-  text-decoration: none;
-}
-
-.topbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 18px clamp(16px, 4vw, 36px);
-  pointer-events: none;
-}
-
-.brand {
-  pointer-events: auto;
-  display: inline-flex;
-  align-items: center;
-  min-height: 40px;
-  font-size: 18px;
-  font-weight: 900;
-  text-transform: uppercase;
+.topbar,
+.post-copy,
+.actions,
+.post::after {
+  display: none !important;
 }
 
 .shell,
@@ -90,30 +50,20 @@ a {
   place-items: center;
   width: 100%;
   height: 100svh;
-  min-height: 560px;
   overflow: hidden;
   scroll-snap-align: start;
   background: #000000;
-  isolation: isolate;
-}
-
-.post::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  background:
-    linear-gradient(180deg, rgba(0, 0, 0, 0.5), transparent 28%, transparent 58%, rgba(0, 0, 0, 0.76)),
-    linear-gradient(90deg, rgba(0, 0, 0, 0.24), transparent 55%);
-  pointer-events: none;
 }
 
 .media-stage {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
+  position: relative;
   display: grid;
   place-items: center;
+  width: min(100vw, calc(100svh * 9 / 16), 720px);
+  aspect-ratio: 9 / 16;
+  max-width: 720px;
+  max-height: 1280px;
+  overflow: hidden;
   background: #000000;
 }
 
@@ -125,127 +75,20 @@ a {
   object-fit: cover;
 }
 
-.post-copy {
-  display: none;
-}
-
-.author,
-.caption {
-  margin: 0;
-}
-
-.author {
-  color: var(--gold);
-  font-size: 15px;
-  font-weight: 900;
-}
-
-.caption {
-  font-size: clamp(24px, 4vw, 46px);
-  line-height: 1.05;
-  font-weight: 950;
-  text-wrap: balance;
-}
-
-.actions {
-  position: absolute;
-  right: clamp(12px, 3vw, 34px);
-  bottom: clamp(30px, 8vh, 76px);
-  z-index: 4;
-  display: grid;
-  gap: 10px;
-  justify-items: center;
-}
-
-.icon-button {
-  display: inline-grid;
-  place-items: center;
-  width: 52px;
-  height: 52px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.15);
-  color: var(--white);
-  font-size: 18px;
-  font-weight: 900;
-  line-height: 1;
-  backdrop-filter: blur(14px);
-}
-
-.icon-button:hover,
-.icon-button:focus-visible {
-  border-color: var(--teal);
-  outline: none;
-}
-
-.like-button.active {
-  background: var(--coral);
-  border-color: var(--coral);
-}
-
-.like-count {
-  min-height: 18px;
-  color: var(--ink-soft);
-  font-size: 12px;
-  font-weight: 900;
-}
-
 .empty-state {
   display: grid;
   place-items: center;
   align-content: center;
-  gap: 18px;
   min-height: 100svh;
-  padding: 72px 18px;
+  padding: 24px;
   text-align: center;
 }
 
 .empty-state h1 {
   margin: 0;
-  font-size: 38px;
+  font-size: 32px;
 }
 
 .phone-mark {
-  display: grid;
-  align-items: end;
-  justify-items: center;
-  width: 190px;
-  height: 330px;
-  padding: 18px;
-  border: 8px solid rgba(255, 255, 255, 0.88);
-  border-radius: 28px;
-  background: linear-gradient(155deg, var(--teal), #111111 45%, var(--coral));
-  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
-}
-
-.phone-mark span {
-  width: 80%;
-  height: 12px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.82);
-}
-
-@media (max-width: 640px) {
-  .topbar {
-    padding: 14px;
-  }
-
-  .caption {
-    font-size: 28px;
-  }
-
-  .post-copy {
-    right: 82px;
-    bottom: 24px;
-  }
-
-  .actions {
-    right: 10px;
-    bottom: 24px;
-  }
-
-  .icon-button {
-    width: 48px;
-    height: 48px;
-  }
+  display: none;
 }

@@ -16,6 +16,7 @@ Pronto. O site lista sozinho os arquivos da pasta `media`.
 
 - Imagens: `.jpg`, `.jpeg`, `.png`, `.webp`, `.gif`, `.avif`
 - Videos: `.mp4`, `.webm`, `.mov`, `.m4v`
+- Tamanho recomendado: `720x1280` na vertical
 
 ## Opcional: legendas manuais
 

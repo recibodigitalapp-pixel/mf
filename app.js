@@ -153,20 +153,19 @@ function renderPost(post, index) {
   const article = fragment.querySelector(".post");
   const mediaStage = article.querySelector(".media-stage");
   const postCopy = article.querySelector(".post-copy");
+  const actions = article.querySelector(".actions");
   const playButton = article.querySelector(".play-button");
   const soundButton = article.querySelector(".sound-button");
-  const likeButton = article.querySelector(".like-button");
-  const shareButton = article.querySelector(".share-button");
-  const likeCount = article.querySelector(".like-count");
   const media = createMedia(post);
 
   article.id = `post-${index + 1}`;
   article.dataset.index = String(index);
   mediaStage.append(media);
   postCopy.remove();
-  likeCount.textContent = post.likes ? String(post.likes) : "";
+  actions.remove();
 
   if (post.type === "video") {
+    media.controls = true;
     playButton.addEventListener("click", () => {
       if (media.paused) {
         pauseOtherVideos(media);
@@ -186,21 +185,6 @@ function renderPost(post, index) {
     playButton.remove();
     soundButton.remove();
   }
-
-  likeButton.addEventListener("click", () => {
-    likeButton.classList.toggle("active");
-    post.likes += likeButton.classList.contains("active") ? 1 : -1;
-    likeCount.textContent = post.likes > 0 ? String(post.likes) : "";
-  });
-
-  shareButton.addEventListener("click", async () => {
-    const url = `${window.location.href.split("#")[0]}#post-${index + 1}`;
-    await navigator.clipboard?.writeText(url).catch(() => undefined);
-    shareButton.textContent = "OK";
-    window.setTimeout(() => {
-      shareButton.textContent = "↗";
-    }, 1400);
-  });
 
   return fragment;
 }
