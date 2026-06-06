@@ -126,15 +126,7 @@ a {
 }
 
 .post-copy {
-  position: absolute;
-  left: clamp(16px, 5vw, 54px);
-  right: 104px;
-  bottom: clamp(30px, 8vh, 76px);
-  z-index: 3;
-  display: grid;
-  gap: 8px;
-  max-width: 760px;
-  overflow-wrap: anywhere;
+  display: none;
 }
 
 .author,

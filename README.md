@@ -1,14 +1,25 @@
 # Feed TikTok Estatico
 
-Site estatico para publicar no GitHub Pages. Ele nao tem backend, upload ou painel admin: voce coloca os arquivos na pasta `media/` e lista cada item em `media.js`.
+Site estatico para publicar no GitHub Pages.
 
-## Como adicionar fotos e videos
+## Como adicionar fotos e videos no GitHub
 
-1. Copie suas imagens e videos para a pasta `media/`.
-2. Abra `media.js`.
-3. Adicione cada arquivo dentro de `window.FEED_ITEMS`.
+1. Abra o repositorio no GitHub.
+2. Entre na pasta `media`.
+3. Clique em `Add file > Upload files`.
+4. Envie suas imagens ou videos.
+5. Clique em `Commit changes`.
 
-Exemplo:
+Pronto. O site lista sozinho os arquivos da pasta `media`.
+
+## Formatos recomendados
+
+- Imagens: `.jpg`, `.jpeg`, `.png`, `.webp`, `.gif`, `.avif`
+- Videos: `.mp4`, `.webm`, `.mov`, `.m4v`
+
+## Opcional: legendas manuais
+
+Por padrao, a legenda e gerada a partir do nome do arquivo. Se quiser controlar manualmente as legendas, edite `media.js`:
 
 ```js
 window.FEED_ITEMS = [
@@ -25,11 +36,6 @@ window.FEED_ITEMS = [
   }
 ];
 ```
-
-Formatos recomendados:
-
-- Imagens: `.jpg`, `.jpeg`, `.png`, `.webp`
-- Videos: `.mp4`, `.webm`
 
 ## Ver no computador
 
