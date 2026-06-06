@@ -11,6 +11,7 @@ Site estatico para publicar no GitHub Pages.
 5. Clique em `Commit changes`.
 
 Pronto. O site lista sozinho os arquivos da pasta `media`.
+Os arquivos mais novos aparecem primeiro no feed.
 
 ## Formatos recomendados
 

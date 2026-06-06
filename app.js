@@ -57,6 +57,24 @@ function normalizeItem(item, index) {
   };
 }
 
+async function getMediaUpdatedAt(fileName) {
+  const path = encodeURIComponent(`media/${fileName}`);
+  const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/commits?sha=${GITHUB_BRANCH}&path=${path}&per_page=1`;
+
+  try {
+    const response = await fetch(url, {
+      headers: { Accept: "application/vnd.github+json" }
+    });
+
+    if (!response.ok) return "";
+
+    const commits = await response.json();
+    return commits?.[0]?.commit?.committer?.date || commits?.[0]?.commit?.author?.date || "";
+  } catch {
+    return "";
+  }
+}
+
 async function loadFromGitHubMediaFolder() {
   const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/media?ref=${GITHUB_BRANCH}`;
   const response = await fetch(url, {
@@ -68,9 +86,20 @@ async function loadFromGitHubMediaFolder() {
   const files = await response.json();
   if (!Array.isArray(files)) return [];
 
-  return files
-    .filter((file) => file.type === "file" && isMediaFile(file.name))
-    .sort((a, b) => a.name.localeCompare(b.name, "pt-BR", { numeric: true }))
+  const mediaFiles = files.filter((file) => file.type === "file" && isMediaFile(file.name));
+  const filesWithDates = await Promise.all(
+    mediaFiles.map(async (file) => ({
+      ...file,
+      updatedAt: await getMediaUpdatedAt(file.name)
+    }))
+  );
+
+  return filesWithDates
+    .sort((a, b) => {
+      const dateDiff = new Date(b.updatedAt || 0).getTime() - new Date(a.updatedAt || 0).getTime();
+      if (dateDiff) return dateDiff;
+      return b.name.localeCompare(a.name, "pt-BR", { numeric: true });
+    })
     .map((file, index) => {
       const type = inferType(file.name);
       return {
@@ -96,7 +125,7 @@ async function loadFromLocalDirectory() {
       .filter((name) => isMediaFile(name));
 
     return names
-      .sort((a, b) => a.localeCompare(b, "pt-BR", { numeric: true }))
+      .sort((a, b) => b.localeCompare(a, "pt-BR", { numeric: true }))
       .map((name, index) => {
         const type = inferType(name);
         return {
