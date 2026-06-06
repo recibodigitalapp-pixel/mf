@@ -7,6 +7,7 @@ const GITHUB_REPO = "mf";
 const GITHUB_BRANCH = "main";
 const IMAGE_EXTENSIONS = /\.(avif|gif|jpeg|jpg|png|webp)$/i;
 const VIDEO_EXTENSIONS = /\.(m4v|mov|mp4|webm)$/i;
+const AD_INTERVAL = 3;
 
 let posts = [];
 let activeIndex = 0;
@@ -57,8 +58,8 @@ function normalizeItem(item, index) {
   };
 }
 
-async function getMediaUpdatedAt(fileName) {
-  const path = encodeURIComponent(`media/${fileName}`);
+async function getFileUpdatedAt(folder, fileName) {
+  const path = encodeURIComponent(`${folder}/${fileName}`);
   const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/commits?sha=${GITHUB_BRANCH}&path=${path}&per_page=1`;
 
   try {
@@ -75,8 +76,8 @@ async function getMediaUpdatedAt(fileName) {
   }
 }
 
-async function loadFromGitHubMediaFolder() {
-  const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/media?ref=${GITHUB_BRANCH}`;
+async function loadFromGitHubFolder(folder, kind = "media") {
+  const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${folder}?ref=${GITHUB_BRANCH}`;
   const response = await fetch(url, {
     headers: { Accept: "application/vnd.github+json" }
   });
@@ -90,7 +91,7 @@ async function loadFromGitHubMediaFolder() {
   const filesWithDates = await Promise.all(
     mediaFiles.map(async (file) => ({
       ...file,
-      updatedAt: await getMediaUpdatedAt(file.name)
+      updatedAt: await getFileUpdatedAt(folder, file.name)
     }))
   );
 
@@ -105,6 +106,7 @@ async function loadFromGitHubMediaFolder() {
       return {
         src: file.download_url || `media/${file.name}`,
         type,
+        kind,
         author: "@meu-feed",
         caption: cleanCaption(file.name, index, type),
         likes: 0
@@ -112,9 +114,9 @@ async function loadFromGitHubMediaFolder() {
     });
 }
 
-async function loadFromLocalDirectory() {
+async function loadFromLocalDirectory(folder = "media", kind = "media") {
   try {
-    const response = await fetch("media/");
+    const response = await fetch(`${folder}/`);
     if (!response.ok) return [];
 
     const html = await response.text();
@@ -129,8 +131,9 @@ async function loadFromLocalDirectory() {
       .map((name, index) => {
         const type = inferType(name);
         return {
-          src: `media/${name}`,
+          src: `${folder}/${name}`,
           type,
+          kind,
           author: "@meu-feed",
           caption: cleanCaption(name, index, type),
           likes: 0
@@ -141,16 +144,43 @@ async function loadFromLocalDirectory() {
   }
 }
 
+function interleaveAds(mediaItems, adItems) {
+  if (!adItems.length) return mediaItems;
+
+  const mixedItems = [];
+  let adIndex = 0;
+
+  mediaItems.forEach((item, index) => {
+    mixedItems.push(item);
+
+    if ((index + 1) % AD_INTERVAL === 0) {
+      mixedItems.push(adItems[adIndex % adItems.length]);
+      adIndex += 1;
+    }
+  });
+
+  return mixedItems;
+}
+
 async function loadItems() {
   if (isGitHubPages()) {
-    const githubItems = await loadFromGitHubMediaFolder();
-    if (githubItems.length) return githubItems;
+    const [githubItems, githubAds] = await Promise.all([
+      loadFromGitHubFolder("media", "media"),
+      loadFromGitHubFolder("ads", "ad")
+    ]);
+
+    if (githubItems.length) return interleaveAds(githubItems, githubAds);
   }
 
   const configuredItems = Array.isArray(window.FEED_ITEMS) ? window.FEED_ITEMS : [];
   if (configuredItems.length) return configuredItems;
 
-  return loadFromLocalDirectory();
+  const [localItems, localAds] = await Promise.all([
+    loadFromLocalDirectory("media", "media"),
+    loadFromLocalDirectory("ads", "ad")
+  ]);
+
+  return interleaveAds(localItems, localAds);
 }
 
 function pauseOtherVideos(currentVideo) {

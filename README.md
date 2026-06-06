@@ -13,6 +13,16 @@ Site estatico para publicar no GitHub Pages.
 Pronto. O site lista sozinho os arquivos da pasta `media`.
 Os arquivos mais novos aparecem primeiro no feed.
 
+## Como adicionar banners
+
+1. Entre na pasta `ads`.
+2. Clique em `Add file > Upload files`.
+3. Envie banners em imagem ou video.
+4. Clique em `Commit changes`.
+
+O site coloca automaticamente 1 banner a cada 3 postagens.
+Use banners verticais no tamanho recomendado `720x1280`.
+
 ## Formatos recomendados
 
 - Imagens: `.jpg`, `.jpeg`, `.png`, `.webp`, `.gif`, `.avif`
