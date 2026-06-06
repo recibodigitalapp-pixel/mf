@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#050505" />
+    <title>Meu Feed</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="media.js" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header class="topbar" aria-label="Topo">
+      <a class="brand" href="./">Meu Feed</a>
+    </header>
+
+    <main class="shell">
+      <div id="feed" class="feed" aria-live="polite"></div>
+      <section id="emptyState" class="empty-state" hidden>
+        <div class="phone-mark" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <h1>Feed vazio</h1>
+      </section>
+    </main>
+
+    <template id="postTemplate">
+      <article class="post">
+        <div class="media-stage"></div>
+        <div class="post-copy">
+          <p class="author"></p>
+          <h2 class="caption"></h2>
+        </div>
+        <div class="actions" aria-label="Acoes">
+          <button class="icon-button play-button" type="button" aria-label="Pausar ou tocar">||</button>
+          <button class="icon-button sound-button" type="button" aria-label="Ativar ou mutar som">S</button>
+          <button class="icon-button like-button" type="button" aria-label="Curtir">♥</button>
+          <button class="icon-button share-button" type="button" aria-label="Copiar link">↗</button>
+          <span class="like-count"></span>
+        </div>
+      </article>
+    </template>
+  </body>
+</html>
