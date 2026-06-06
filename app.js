@@ -75,8 +75,8 @@ function renderPost(post, index) {
   likeCount.textContent = post.likes ? String(post.likes) : "";
 
   if (post.type !== "video") {
-    playButton.hidden = true;
-    soundButton.hidden = true;
+    playButton.remove();
+    soundButton.remove();
   }
 
   playButton.addEventListener("click", () => {
@@ -162,6 +162,8 @@ function init() {
   posts = items.filter((item) => item && (typeof item === "string" || item.src)).map(normalizeItem);
   feed.hidden = posts.length === 0;
   emptyState.hidden = posts.length > 0;
+  feed.style.display = posts.length === 0 ? "none" : "";
+  emptyState.style.display = posts.length > 0 ? "none" : "";
 
   posts.forEach((post, index) => {
     feed.append(renderPost(post, index));
