@@ -1,6 +1,7 @@
 const feed = document.querySelector("#feed");
 const emptyState = document.querySelector("#emptyState");
 const template = document.querySelector("#postTemplate");
+const adminHotspot = document.querySelector("#adminHotspot");
 
 const GITHUB_OWNER = "recibodigitalapp-pixel";
 const GITHUB_REPO = "mf";
@@ -8,9 +9,14 @@ const GITHUB_BRANCH = "main";
 const IMAGE_EXTENSIONS = /\.(avif|gif|jpeg|jpg|png|webp)$/i;
 const VIDEO_EXTENSIONS = /\.(m4v|mov|mp4|webm)$/i;
 const AD_INTERVAL = 3;
+const GITHUB_UPLOAD_URL = `https://github.com/${GITHUB_OWNER}/${GITHUB_REPO}/upload/${GITHUB_BRANCH}/media`;
+const ADMIN_TAP_LIMIT = 3;
+const ADMIN_TAP_WINDOW = 1600;
 
 let posts = [];
 let activeIndex = 0;
+let adminTapCount = 0;
+let adminTapTimer = 0;
 
 function isGitHubPages() {
   return window.location.hostname.endsWith("github.io");
@@ -284,6 +290,24 @@ function bindKeyboard() {
   });
 }
 
+function openAdminAfterTaps() {
+  window.clearTimeout(adminTapTimer);
+  adminTapCount += 1;
+
+  if (adminTapCount >= ADMIN_TAP_LIMIT) {
+    window.location.href = GITHUB_UPLOAD_URL;
+    return;
+  }
+
+  adminTapTimer = window.setTimeout(() => {
+    adminTapCount = 0;
+  }, ADMIN_TAP_WINDOW);
+}
+
+function bindAdminEntry() {
+  adminHotspot?.addEventListener("click", openAdminAfterTaps);
+}
+
 function scrollToHash() {
   const match = window.location.hash.match(/^#post-(\d+)$/);
   if (!match) return;
@@ -309,6 +333,7 @@ function render() {
 }
 
 async function init() {
+  bindAdminEntry();
   const items = await loadItems();
   posts = items.filter((item) => item && (typeof item === "string" || item.src)).map(normalizeItem);
   render();

@@ -6,14 +6,15 @@ Site estatico para publicar no GitHub Pages.
 
 ### Pelo painel de envio
 
-1. Abra `admin.html` no site publicado.
-2. Cole um token do GitHub com permissao de escrita no repositorio `recibodigitalapp-pixel/mf`.
-3. Escolha se quer enviar para o feed principal ou para banners.
-4. Selecione as imagens ou videos.
-5. Clique em `Enviar para o GitHub`.
+1. No feed publicado, clique 3 vezes no canto superior esquerdo da tela.
+2. O GitHub vai abrir a tela de upload da pasta `media`.
+3. Selecione as imagens ou videos.
+4. Clique em `Commit changes`.
 
-Quem nao tiver o token nao consegue publicar arquivos.
+Quem nao tiver permissao no repositorio nao consegue publicar arquivos.
 As midias novas aparecem primeiro no feed.
+
+Se preferir, abra `admin.html` no site publicado e escolha entre `Enviar para o feed` ou `Enviar banners`.
 
 ### Pelo GitHub
 

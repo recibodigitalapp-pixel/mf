@@ -64,106 +64,14 @@ h1 {
   text-decoration: none;
 }
 
-.upload-form {
+.upload-actions {
   display: grid;
   gap: 16px;
 }
 
-.field {
-  display: grid;
-  gap: 8px;
-}
-
-.field span,
-.check-row span {
-  color: #d4d4d8;
-  font-size: 14px;
-}
-
-.field input,
-.field select {
-  width: 100%;
-  min-height: 46px;
-  border: 1px solid #3f3f46;
-  border-radius: 8px;
-  background: #050505;
-  color: #ffffff;
-  padding: 0 12px;
-}
-
-.check-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.check-row input {
-  width: 18px;
-  height: 18px;
-}
-
-.drop-zone {
-  display: grid;
-  gap: 8px;
-  width: 100%;
-  min-height: 140px;
-  place-items: center;
-  border: 1px dashed #52525b;
-  border-radius: 8px;
-  background: #18181b;
-  color: #ffffff;
-  cursor: pointer;
-  padding: 24px;
-  text-align: center;
-}
-
-.drop-zone:hover,
-.drop-zone.is-dragging {
-  border-color: #34d399;
-  background: #10241d;
-}
-
-.drop-zone strong {
-  font-size: 18px;
-}
-
-.drop-zone span {
-  color: #d4d4d8;
-  font-size: 13px;
-  line-height: 1.35;
-}
-
-.file-input {
-  display: none;
-}
-
-.file-list {
-  display: grid;
-  gap: 8px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.file-list li {
-  display: grid;
-  gap: 4px;
-  border: 1px solid #27272a;
-  border-radius: 8px;
-  background: #0a0a0a;
-  padding: 10px 12px;
-}
-
-.file-name {
-  overflow-wrap: anywhere;
-}
-
-.file-meta {
-  color: #a1a1aa;
-  font-size: 13px;
-}
-
 .primary-button {
+  display: grid;
+  place-items: center;
   min-height: 48px;
   border: 0;
   border-radius: 8px;
@@ -172,17 +80,25 @@ h1 {
   cursor: pointer;
   font-weight: 700;
   padding: 0 16px;
+  text-align: center;
+  text-decoration: none;
 }
 
-.primary-button:disabled {
-  background: #3f3f46;
-  color: #a1a1aa;
-  cursor: not-allowed;
+.secondary-button {
+  display: grid;
+  min-height: 48px;
+  place-items: center;
+  border: 1px solid #3f3f46;
+  border-radius: 8px;
+  color: #f8f8f8;
+  padding: 0 16px;
+  text-align: center;
+  text-decoration: none;
 }
 
 .status-message {
   min-height: 22px;
-  margin: 0;
+  margin: 18px 0 0;
   color: #d4d4d8;
   line-height: 1.4;
 }
