@@ -2,6 +2,12 @@
 // Para adicionar midias, envie arquivos para a pasta media/ no GitHub.
 window.FEED_ITEMS = [
   {
+    "src": "media/video_LTX_2.3_i2v_00007_.mp4",
+    "type": "video",
+    "kind": "media",
+    "updatedAt": 1782718462
+  },
+  {
     "src": "media/omni-6b29ecfc-e198-4021-9987-a3a1868ceadd.png",
     "type": "image",
     "kind": "media",
