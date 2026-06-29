@@ -26,6 +26,7 @@ Se preferir, abra `admin.html` no site publicado e escolha entre `Enviar para o 
 
 Pronto. O site lista sozinho os arquivos da pasta `media`.
 Os arquivos mais novos aparecem primeiro no feed.
+O arquivo `media.js` e atualizado automaticamente pelo GitHub Actions quando voce envia midias novas.
 
 ## Como adicionar banners
 

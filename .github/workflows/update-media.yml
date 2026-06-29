@@ -1,0 +1,45 @@
+name: Update media manifest
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "media/**"
+      - "ads/**"
+      - "scripts/build-media-manifest.mjs"
+      - ".github/workflows/update-media.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  update-media:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Generate media.js
+        run: node scripts/build-media-manifest.mjs
+
+      - name: Commit media.js
+        run: |
+          if git diff --quiet -- media.js; then
+            echo "media.js already up to date"
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add media.js
+          git commit -m "Update media manifest"
+          git push

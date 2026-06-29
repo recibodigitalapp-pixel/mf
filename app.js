@@ -169,6 +169,11 @@ function interleaveAds(mediaItems, adItems) {
 }
 
 async function loadItems() {
+  const configuredItems = Array.isArray(window.FEED_ITEMS) ? window.FEED_ITEMS : [];
+  const configuredAds = Array.isArray(window.AD_ITEMS) ? window.AD_ITEMS : [];
+
+  if (configuredItems.length) return interleaveAds(configuredItems, configuredAds);
+
   if (isGitHubPages()) {
     const [githubItems, githubAds] = await Promise.all([
       loadFromGitHubFolder("media", "media"),
@@ -177,9 +182,6 @@ async function loadItems() {
 
     if (githubItems.length) return interleaveAds(githubItems, githubAds);
   }
-
-  const configuredItems = Array.isArray(window.FEED_ITEMS) ? window.FEED_ITEMS : [];
-  if (configuredItems.length) return configuredItems;
 
   const [localItems, localAds] = await Promise.all([
     loadFromLocalDirectory("media", "media"),
