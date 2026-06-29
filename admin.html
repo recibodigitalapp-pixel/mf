@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#050505" />
+    <title>Enviar Midias</title>
+    <link rel="stylesheet" href="admin.css?v=1" />
+    <script src="admin.js?v=1" defer></script>
+  </head>
+  <body>
+    <main class="admin-shell">
+      <section class="admin-panel" aria-labelledby="pageTitle">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">recibodigitalapp-pixel/mf</p>
+            <h1 id="pageTitle">Enviar fotos e videos</h1>
+          </div>
+          <a class="feed-link" href="./">Ver feed</a>
+        </div>
+
+        <form id="uploadForm" class="upload-form">
+          <label class="field">
+            <span>Token do GitHub</span>
+            <input
+              id="tokenInput"
+              type="password"
+              autocomplete="off"
+              placeholder="Cole seu token aqui"
+              required
+            />
+          </label>
+
+          <label class="check-row">
+            <input id="rememberToken" type="checkbox" />
+            <span>Lembrar neste navegador</span>
+          </label>
+
+          <label class="field">
+            <span>Enviar para</span>
+            <select id="folderSelect">
+              <option value="media">Feed principal</option>
+              <option value="ads">Banners entre postagens</option>
+            </select>
+          </label>
+
+          <button id="dropZone" class="drop-zone" type="button">
+            <strong>Selecionar arquivos</strong>
+            <span>JPG, PNG, WEBP, GIF, AVIF, MP4, WEBM, MOV ou M4V</span>
+          </button>
+
+          <input
+            id="fileInput"
+            class="file-input"
+            type="file"
+            accept=".avif,.gif,.jpeg,.jpg,.png,.webp,.m4v,.mov,.mp4,.webm,image/*,video/*"
+            multiple
+          />
+
+          <ul id="fileList" class="file-list" aria-live="polite"></ul>
+
+          <button id="uploadButton" class="primary-button" type="submit" disabled>
+            Enviar para o GitHub
+          </button>
+
+          <p id="statusMessage" class="status-message" role="status"></p>
+        </form>
+      </section>
+    </main>
+  </body>
+</html>

@@ -4,6 +4,19 @@ Site estatico para publicar no GitHub Pages.
 
 ## Como adicionar fotos e videos no GitHub
 
+### Pelo painel de envio
+
+1. Abra `admin.html` no site publicado.
+2. Cole um token do GitHub com permissao de escrita no repositorio `recibodigitalapp-pixel/mf`.
+3. Escolha se quer enviar para o feed principal ou para banners.
+4. Selecione as imagens ou videos.
+5. Clique em `Enviar para o GitHub`.
+
+Quem nao tiver o token nao consegue publicar arquivos.
+As midias novas aparecem primeiro no feed.
+
+### Pelo GitHub
+
 1. Abra o repositorio no GitHub.
 2. Entre na pasta `media`.
 3. Clique em `Add file > Upload files`.
