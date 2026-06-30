@@ -2,6 +2,24 @@
 // Para adicionar midias, envie arquivos para a pasta media/ no GitHub.
 window.FEED_ITEMS = [
   {
+    "src": "media/a7311cf2-e66e-458a-ae22-5e767b0dccfc.mp4",
+    "type": "video",
+    "kind": "media",
+    "updatedAt": 1782796910
+  },
+  {
+    "src": "media/61d2ef8a-bb19-4ddd-a47b-09c6d17b562b.mp4",
+    "type": "video",
+    "kind": "media",
+    "updatedAt": 1782796910
+  },
+  {
+    "src": "media/49ebd1c4-002e-4754-85a5-a64b60662be4.mp4",
+    "type": "video",
+    "kind": "media",
+    "updatedAt": 1782796910
+  },
+  {
     "src": "media/omni-9a32d46b-756b-49fc-9bb3-c8599ff353ef.png",
     "type": "image",
     "kind": "media",
